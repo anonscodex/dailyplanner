@@ -7,11 +7,11 @@ function App() {
   const [plan, setPlan] = useState(null);
   const [error, setError] = useState(null);
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000";
+  //const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000";
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`${backendUrl}/plan-day`, {
+      const response = await axios.post(`https://todoai-wn6s.onrender.com /plan-day`, {
         tasks,
       });
       setPlan(response.data.plan);
