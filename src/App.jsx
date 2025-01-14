@@ -11,7 +11,7 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`https://todoai-wn6s.onrender.com /plan-day`, {
+      const response = await axios.post(`https://todoai-wn6s.onrender.com/plan-day`, {
         tasks,
       });
       setPlan(response.data.plan);
