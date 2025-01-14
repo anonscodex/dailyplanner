@@ -22,25 +22,25 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 flex flex-col items-center py-10">
+    <div className="min-h-screen bg-gray-900 flex flex-col items-center py-10">
       <h1 className="text-3xl font-bold text-white mb-6">DailyPlanner AI</h1>
       <textarea
-        className="w-2/3 p-4 border bg-gray-800 text-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+        className="w-2/3 p-4 border bg-gray-900 text-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
         rows="6"
         placeholder="Enter your to-do list (one task per line)..."
         value={tasks}
         onChange={(e) => setTasks(e.target.value)}
       />
       <button
-        className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
+        className="bg-white text-black font-bold px-6 py-2 rounded-md hover:bg-black-600"
         onClick={handleSubmit}
       >
         Plan My Day
       </button>
       {plan && (
-        <div className="w-3/3 bg-gray-800 mt-6 p-4 rounded-md shadow-md">
+        <div className="w-3/3 bg-gray-900 mt-6 p-4 rounded-md shadow-md">
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Your Plan:</h2>
-          <p className="text-white whitespace-pre-wrap">{plan}</p>
+          <pre className="text-white whitespace-pre-wrap">{plan}</pre>
         </div>
       )}
       {error && <p className="text-red-500 mt-4">{error}</p>}
