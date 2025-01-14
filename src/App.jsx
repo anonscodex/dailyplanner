@@ -38,7 +38,7 @@ function App() {
         Plan My Day
       </button>
       {plan && (
-        <div className="w-2/3 bg-gray-800 mt-6 p-4 rounded-md shadow-md">
+        <div className="w-3/3 bg-gray-800 mt-6 p-4 rounded-md shadow-md">
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Your Plan:</h2>
           <p className="text-white whitespace-pre-wrap">{plan}</p>
         </div>
