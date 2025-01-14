@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+
 function App() {
   const [tasks, setTasks] = useState("");
   const [plan, setPlan] = useState(null);
   const [error, setError] = useState(null);
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000";
 
   const handleSubmit = async () => {
     try {
