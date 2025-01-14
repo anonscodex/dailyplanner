@@ -6,9 +6,11 @@ function App() {
   const [plan, setPlan] = useState(null);
   const [error, setError] = useState(null);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/plan-day", {
+      const response = await axios.post(`${backendUrl}/plan-day`, {
         tasks,
       });
       setPlan(response.data.plan);
