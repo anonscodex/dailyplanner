@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-800 flex flex-col items-center py-10">
-      <h1 className="text-3xl font-bold text-white mb-6">Todo AI</h1>
+      <h1 className="text-3xl font-bold text-white mb-6">DailyPlanner AI</h1>
       <textarea
         className="w-2/3 p-4 border bg-gray-800 text-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
         rows="6"
@@ -40,7 +40,7 @@ function App() {
       {plan && (
         <div className="w-2/3 bg-gray-800 mt-6 p-4 rounded-md shadow-md">
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Your Plan:</h2>
-          <pre className="text-white whitespace-pre-wrap">{plan}</pre>
+          <p className="text-white whitespace-pre-wrap">{plan}</p>
         </div>
       )}
       {error && <p className="text-red-500 mt-4">{error}</p>}
