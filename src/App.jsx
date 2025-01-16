@@ -10,6 +10,7 @@ import {
 } from "@solana/wallet-adapter-wallets";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const [tasks, setTasks] = useState("");
@@ -93,11 +94,14 @@ function App() {
                 {error && <p className="text-red-500 mt-4">{error}</p>}
               </>
             )}
+             <Analytics />
           </div>
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
+   
   );
+  
 }
 
 export default App;
