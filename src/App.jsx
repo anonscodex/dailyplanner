@@ -6,7 +6,6 @@ import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
   TorusWalletAdapter,
-  
 } from "@solana/wallet-adapter-wallets";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
@@ -16,31 +15,42 @@ function App() {
   const [plan, setPlan] = useState(null);
   const [error, setError] = useState(null);
   const [walletConnected, setWalletConnected] = useState(false);
+  const [walletAvailable, setWalletAvailable] = useState(false);
 
   // Wallet setup
-   const wallets = [
+  const wallets = [
     new PhantomWalletAdapter(),
     new SolflareWalletAdapter({ network: "mainnet-beta" }),
     new TorusWalletAdapter(),
-    
   ];
 
   useEffect(() => {
+    // Check if any wallet is available
+    const walletDetected = wallets.some(wallet => wallet.readyState === "Installed");
+    setWalletAvailable(walletDetected);
+
+    // Check if wallet was already connected
     const isWalletConnected = localStorage.getItem("walletConnected");
     if (isWalletConnected) {
       setWalletConnected(true);
     }
-  }, []);
+  }, [wallets]);
 
   const handleWalletConnect = async (wallet) => {
     try {
+      if (wallet.readyState !== "Installed") {
+        setError("Wallet is not installed.");
+        return;
+      }
       // Connect wallet
       await wallet.connect();
       // Save connection state
       localStorage.setItem("walletConnected", "true");
       setWalletConnected(true);
+      setError(null);
     } catch (err) {
       console.error("Wallet connection failed", err);
+      setError("Wallet connection failed. Please try again.");
     }
   };
 
@@ -62,7 +72,9 @@ function App() {
         <WalletModalProvider>
           <div className="min-h-screen bg-gray-900 flex flex-col items-center py-10">
             <h1 className="text-3xl font-bold text-white mb-6">DailyPlanner AI</h1>
-            {!walletConnected ? (
+            {!walletAvailable ? (
+              <p className="text-red-500 mb-4">No supported wallets detected. Please install a Solana wallet.</p>
+            ) : !walletConnected ? (
               <button
                 className="bg-white text-black font-bold px-6 py-2 rounded-md hover:bg-black-600 mb-4"
                 onClick={() => handleWalletConnect(wallets[0])}
@@ -101,4 +113,3 @@ function App() {
 }
 
 export default App;
-
