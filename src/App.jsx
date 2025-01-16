@@ -43,10 +43,6 @@ function App() {
 
   const handleWalletConnect = async (wallet) => {
     try {
-      if (wallet.readyState !== "Installed") {
-        setError("Wallet is not installed.");
-        return;
-      }
 
       if (isMobile) {
         // Trigger mobile wallet using deep link
