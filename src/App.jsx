@@ -40,22 +40,6 @@ function App() {
 
   const handleWalletConnect = async (wallet) => {
     try {
-      if (wallet.readyState !== "Installed") {
-        setError("Wallet is not installed.");
-        if (isMobile) {
-          // Redirect to download page
-          const downloadLink = wallet.name === "Phantom"
-            ? "https://phantom.app/download"
-            : wallet.name === "Solflare"
-            ? "https://solflare.com/download"
-            : null;
-  
-          if (downloadLink) {
-            window.location.href = downloadLink;
-          }
-        }
-        return;
-      }
   
       if (isMobile) {
         // Trigger mobile wallet deep link
