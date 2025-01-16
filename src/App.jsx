@@ -79,9 +79,7 @@ function App() {
         <WalletModalProvider>
           <div className="min-h-screen bg-gray-900 flex flex-col items-center py-10">
             <h1 className="text-3xl font-bold text-white mb-6">DailyPlanner AI</h1>
-            {!walletAvailable ? (
-              <p className="text-red-500 mb-4">No supported wallets detected. Please install a Solana wallet.</p>
-            ) : !walletConnected ? (
+            {!walletConnected ? (
               <>
                 <button
                   className="bg-white text-black font-bold px-6 py-2 rounded-md hover:bg-black-600 mb-4"
