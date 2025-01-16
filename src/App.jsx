@@ -40,17 +40,38 @@ function App() {
 
   const handleWalletConnect = async (wallet) => {
     try {
-
+      if (wallet.readyState !== "Installed") {
+        setError("Wallet is not installed.");
+        if (isMobile) {
+          // Redirect to download page
+          const downloadLink = wallet.name === "Phantom"
+            ? "https://phantom.app/download"
+            : wallet.name === "Solflare"
+            ? "https://solflare.com/download"
+            : null;
+  
+          if (downloadLink) {
+            window.location.href = downloadLink;
+          }
+        }
+        return;
+      }
+  
       if (isMobile) {
-        // Trigger mobile wallet using deep link
-        const mobileUrl = wallet.url || wallet.adapter.url;
-        if (mobileUrl) {
-          window.open(mobileUrl, "_blank");
+        // Trigger mobile wallet deep link
+        const deepLink = wallet.name === "Phantom"
+          ? "phantom://"
+          : wallet.name === "Solflare"
+          ? "solflare://"
+          : null;
+  
+        if (deepLink) {
+          window.open(deepLink, "_self");
           return;
         }
       }
-
-      // Connect wallet on desktop or in-app browser
+  
+      // Connect wallet (Desktop or in-app browsers)
       await wallet.connect();
       localStorage.setItem("walletConnected", "true");
       setWalletConnected(true);
@@ -60,6 +81,7 @@ function App() {
       setError("Wallet connection failed. Please try again.");
     }
   };
+  
 
   const handleSubmit = async () => {
     try {
