@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+  TorusWalletAdapter,
+  LedgerWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 
@@ -13,7 +18,12 @@ function App() {
   const [walletConnected, setWalletConnected] = useState(false);
 
   // Wallet setup
-  const wallets = [new PhantomWalletAdapter()];
+   const wallets = [
+    new PhantomWalletAdapter(),
+    new SolflareWalletAdapter({ network: "mainnet-beta" }),
+    new TorusWalletAdapter(),
+    new LedgerWalletAdapter(),
+  ];
 
   useEffect(() => {
     const isWalletConnected = localStorage.getItem("walletConnected");
