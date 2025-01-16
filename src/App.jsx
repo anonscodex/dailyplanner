@@ -6,8 +6,7 @@ import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
   TorusWalletAdapter,
-  LedgerWalletAdapter,
-
+  
 } from "@solana/wallet-adapter-wallets";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
@@ -23,7 +22,7 @@ function App() {
     new PhantomWalletAdapter(),
     new SolflareWalletAdapter({ network: "mainnet-beta" }),
     new TorusWalletAdapter(),
-    new LedgerWalletAdapter(),
+    
   ];
 
   useEffect(() => {
