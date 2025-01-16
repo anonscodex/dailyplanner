@@ -16,6 +16,7 @@ function App() {
   const [error, setError] = useState(null);
   const [walletConnected, setWalletConnected] = useState(false);
   const [walletAvailable, setWalletAvailable] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Wallet setup
   const wallets = [
@@ -25,6 +26,10 @@ function App() {
   ];
 
   useEffect(() => {
+    // Detect if the device is mobile
+    const mobileCheck = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    setIsMobile(mobileCheck);
+
     // Check if any wallet is available
     const walletDetected = wallets.some(wallet => wallet.readyState === "Installed");
     setWalletAvailable(walletDetected);
@@ -42,9 +47,18 @@ function App() {
         setError("Wallet is not installed.");
         return;
       }
-      // Connect wallet
+
+      if (isMobile) {
+        // Trigger mobile wallet using deep link
+        const mobileUrl = wallet.url || wallet.adapter.url;
+        if (mobileUrl) {
+          window.open(mobileUrl, "_blank");
+          return;
+        }
+      }
+
+      // Connect wallet on desktop or in-app browser
       await wallet.connect();
-      // Save connection state
       localStorage.setItem("walletConnected", "true");
       setWalletConnected(true);
       setError(null);
@@ -75,12 +89,19 @@ function App() {
             {!walletAvailable ? (
               <p className="text-red-500 mb-4">No supported wallets detected. Please install a Solana wallet.</p>
             ) : !walletConnected ? (
-              <button
-                className="bg-white text-black font-bold px-6 py-2 rounded-md hover:bg-black-600 mb-4"
-                onClick={() => handleWalletConnect(wallets[0])}
-              >
-                Connect Wallet
-              </button>
+              <>
+                <button
+                  className="bg-white text-black font-bold px-6 py-2 rounded-md hover:bg-black-600 mb-4"
+                  onClick={() => handleWalletConnect(wallets[0])}
+                >
+                  Connect Wallet
+                </button>
+                {isMobile && (
+                  <p className="text-gray-400 text-sm mt-2">
+                    Please ensure your wallet app is installed on your mobile device.
+                  </p>
+                )}
+              </>
             ) : (
               <>
                 <textarea
