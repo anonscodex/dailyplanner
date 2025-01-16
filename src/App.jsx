@@ -15,7 +15,6 @@ function App() {
   const [plan, setPlan] = useState(null);
   const [error, setError] = useState(null);
   const [walletConnected, setWalletConnected] = useState(false);
-  const [walletAvailable, setWalletAvailable] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   // Wallet setup
@@ -31,8 +30,6 @@ function App() {
     setIsMobile(mobileCheck);
 
     // Check if any wallet is available
-    const walletDetected = wallets.some(wallet => wallet.readyState === "Installed");
-    setWalletAvailable(walletDetected);
 
     // Check if wallet was already connected
     const isWalletConnected = localStorage.getItem("walletConnected");
