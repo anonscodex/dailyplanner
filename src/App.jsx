@@ -43,9 +43,9 @@ function App() {
 
       if (isMobile) {
         // Trigger mobile wallet using deep link
-        const mobileUrl = wallet.url || wallet.adapter.url;
-        if (mobileUrl) {
-          window.open(mobileUrl, "_blank");
+        const mobileAppUrl = wallet.adapter.urlForApp || wallet.urlForApp;
+        if (mobileAppUrl) {
+          window.open(mobileAppUrl, "_blank");
           return;
         }
       }
