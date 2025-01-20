@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import { WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -10,10 +10,25 @@ import {
 import "@solana/wallet-adapter-react-ui/styles.css";
 
 function AppContent() {
-  const { publicKey } = useWallet(); // Access wallet context
+  const { publicKey, connect, connected } = useWallet(); // Access wallet context
   const [tasks, setTasks] = useState("");
   const [plan, setPlan] = useState(null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Auto-connect the wallet if previously connected
+    const storedPublicKey = localStorage.getItem("connectedPublicKey");
+    if (storedPublicKey && !connected) {
+      connect().catch(() => console.log("Auto-connect failed"));
+    }
+  }, [connect, connected]);
+
+  useEffect(() => {
+    // Save the public key to localStorage when wallet connects
+    if (publicKey) {
+      localStorage.setItem("connectedPublicKey", publicKey.toString());
+    }
+  }, [publicKey]);
 
   const handleSubmit = async () => {
     if (!publicKey) {
@@ -39,11 +54,9 @@ function AppContent() {
     <div className="min-h-screen bg-gray-900 flex flex-col items-center py-10">
       <h1 className="text-3xl font-bold text-white mb-6">DailyPlanner AI</h1>
       <WalletMultiButton />
-      {publicKey && (
-        <p className="text-white mt-4">Connected Wallet: {publicKey.toString()}</p>
-      )}
+      
       <textarea
-        className="w-2/3 p-4 border bg-gray-900 text-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+        className="w-2/3 mt-4 p-4 border bg-gray-900 text-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
         rows="6"
         placeholder="Enter your to-do list (one task per line)..."
         value={tasks}
