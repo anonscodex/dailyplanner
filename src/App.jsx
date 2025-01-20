@@ -80,6 +80,7 @@ function AppContent() {
         </div>
       )}
       {error && <p className="text-red-500 mt-4">{error}</p>}
+      <Analytics />
     </div>
   );
 }
