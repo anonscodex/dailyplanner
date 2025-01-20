@@ -8,6 +8,7 @@ import {
   TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import "@solana/wallet-adapter-react-ui/styles.css";
+import { Analytics } from "@vercel/analytics/react"
 
 function AppContent() {
   const { publicKey, connect, connected } = useWallet(); // Access wallet context
