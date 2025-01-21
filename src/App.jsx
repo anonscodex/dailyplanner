@@ -39,6 +39,9 @@ function AppContent() {
       return;
     }
 
+    setIsLoading(true); // Start loading
+    setError(null); // Clear previous errors
+
     try {
       const response = await fetch(`https://todoai-wn6s.onrender.com/plan-day`, {
         method: "POST",
@@ -50,6 +53,8 @@ function AppContent() {
       setError(null);
     } catch (err) {
       setError("Failed to fetch the plan. Please try again.");
+    }finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
