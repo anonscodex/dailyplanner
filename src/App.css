@@ -40,3 +40,39 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.dot-typing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot-typing::before,
+.dot-typing::after,
+.dot-typing span {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  background: white;
+  border-radius: 50%;
+  animation: dot-blink 1.5s infinite ease-in-out;
+}
+
+.dot-typing span {
+  animation-delay: 0.2s;
+}
+
+.dot-typing::after {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-blink {
+  0%, 80%, 100% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+}

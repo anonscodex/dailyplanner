@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './App.css';
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import { WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -15,6 +16,7 @@ function AppContent() {
   const [tasks, setTasks] = useState("");
   const [plan, setPlan] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
 
   useEffect(() => {
     // Auto-connect the wallet if previously connected
@@ -70,10 +72,15 @@ function AppContent() {
             : "bg-gray-500 text-gray-300 cursor-not-allowed"
         }`}
         onClick={handleSubmit}
-        disabled={!publicKey}
+        disabled={!publicKey || isLoading} 
       >
-        Plan My Day
+        {isLoading ? "Generating..." : "Plan My Day"}
       </button>
+      {isLoading && (
+        <div className="text-white mt-4">
+          <div className="dot-typing"></div>
+        </div>
+      )}
       {plan && (
         <div className="w-3/3 bg-gray-900 mt-6 p-4 rounded-md shadow-md">
           <h2 className="text-xl font-semibold text-white mb-2">Your Plan:</h2>
