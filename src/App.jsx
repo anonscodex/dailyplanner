@@ -76,7 +76,7 @@ function AppContent() {
       </button>
       {plan && (
         <div className="w-3/3 bg-gray-900 mt-6 p-4 rounded-md shadow-md">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">Your Plan:</h2>
+          <h2 className="text-xl font-semibold text-white mb-2">Your Plan:</h2>
           <pre className="text-white whitespace-pre-wrap">{plan}</pre>
         </div>
       )}
