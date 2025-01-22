@@ -86,6 +86,11 @@ function AppContent() {
           <div className="dot-typing"></div>
         </div>
       )}
+      {!publicKey && (
+        <div className="text-white mt-4">
+          <div className="text-md text-white">Connect your wallet </div>
+        </div>
+      )}
       {plan && (
         <div className="w-3/3 bg-gray-900 mt-6 p-4 rounded-md shadow-md">
           <h2 className="text-xl font-semibold text-white mb-2">Your Plan:</h2>
